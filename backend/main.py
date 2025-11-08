@@ -29,9 +29,16 @@ class GenerateQuizRequest(BaseModel):
 app = FastAPI(title="AI Wiki Quiz Generator")
 
 # CORS middleware
+# Allow all origins for now (you can restrict to specific domains in production)
+allowed_origins = [
+    "http://localhost:3000",
+    "https://ai-wiki-quiz-generatorr.netlify.app",
+    "https://*.netlify.app",  # Allow all Netlify preview deployments
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify your frontend URL
+    allow_origins=["*"],  # Using * for now, but you can use allowed_origins list above for better security
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
