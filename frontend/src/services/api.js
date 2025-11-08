@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:8000';
+// Use environment variable for API URL, fallback to localhost for development
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 export const generateQuiz = async (url) => {
   try {
@@ -20,7 +21,7 @@ export const generateQuiz = async (url) => {
     return response.json();
   } catch (error) {
     if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
-      throw new Error('Cannot connect to backend server. Please make sure the backend is running on http://localhost:8000');
+      throw new Error(`Cannot connect to backend server at ${API_BASE_URL}. Please check if the backend is running.`);
     }
     throw error;
   }
@@ -37,7 +38,7 @@ export const getHistory = async () => {
     return response.json();
   } catch (error) {
     if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
-      throw new Error('Cannot connect to backend server. Please make sure the backend is running on http://localhost:8000');
+      throw new Error(`Cannot connect to backend server at ${API_BASE_URL}. Please check if the backend is running.`);
     }
     throw error;
   }
@@ -54,7 +55,7 @@ export const getQuiz = async (quizId) => {
     return response.json();
   } catch (error) {
     if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
-      throw new Error('Cannot connect to backend server. Please make sure the backend is running on http://localhost:8000');
+      throw new Error(`Cannot connect to backend server at ${API_BASE_URL}. Please check if the backend is running.`);
     }
     throw error;
   }
