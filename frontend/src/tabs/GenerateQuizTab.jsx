@@ -65,12 +65,23 @@ const GenerateQuizTab = () => {
       </form>
 
       {error && (
-        <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-red-400 to-pink-400 border-2 border-red-500 text-white rounded-xl shadow-lg animate-pulse">
-          <div className="flex items-center space-x-2">
+        <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-red-400 to-pink-400 border-2 border-red-500 text-white rounded-xl shadow-lg">
+          <div className="flex items-center space-x-2 mb-3">
             <span className="text-2xl">⚠️</span>
-            <span className="font-semibold">Error:</span>
+            <span className="font-semibold text-xl">Error:</span>
           </div>
-          <p className="mt-2">{error}</p>
+          <p className="mt-2 text-lg">{error}</p>
+          {error.includes('REACT_APP_API_URL') && (
+            <div className="mt-4 p-4 bg-white/20 rounded-lg">
+              <p className="font-semibold mb-2">Quick Fix:</p>
+              <ol className="list-decimal list-inside space-y-1 text-sm">
+                <li>Deploy your backend to Railway/Render/Heroku</li>
+                <li>Go to Netlify → Site settings → Environment variables</li>
+                <li>Add: <code className="bg-black/30 px-2 py-1 rounded">REACT_APP_API_URL</code> = your backend URL</li>
+                <li>Redeploy your Netlify site</li>
+              </ol>
+            </div>
+          )}
         </div>
       )}
 

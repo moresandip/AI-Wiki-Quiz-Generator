@@ -1,6 +1,14 @@
 // Use environment variable for API URL, fallback to localhost for development
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
+// Check if we're in production without backend URL configured
+const isProduction = window.location.hostname !== 'localhost' && 
+                     window.location.hostname !== '127.0.0.1' &&
+                     !window.location.hostname.includes('localhost');
+const isBackendConfigured = !!process.env.REACT_APP_API_URL && 
+                            process.env.REACT_APP_API_URL !== 'http://localhost:8000' &&
+                            !process.env.REACT_APP_API_URL.includes('localhost');
+
 export const generateQuiz = async (url) => {
   try {
     const response = await fetch(`${API_BASE_URL}/generate_quiz`, {
@@ -21,6 +29,10 @@ export const generateQuiz = async (url) => {
     return response.json();
   } catch (error) {
     if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
+      // Provide better error message for production without backend configured
+      if (isProduction && !isBackendConfigured) {
+        throw new Error('Backend server is not configured. Please set REACT_APP_API_URL environment variable in Netlify with your deployed backend URL. See deployment guide for instructions.');
+      }
       throw new Error(`Cannot connect to backend server at ${API_BASE_URL}. Please check if the backend is running.`);
     }
     throw error;
@@ -38,6 +50,10 @@ export const getHistory = async () => {
     return response.json();
   } catch (error) {
     if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
+      // Provide better error message for production without backend configured
+      if (isProduction && !isBackendConfigured) {
+        throw new Error('Backend server is not configured. Please set REACT_APP_API_URL environment variable in Netlify with your deployed backend URL. See deployment guide for instructions.');
+      }
       throw new Error(`Cannot connect to backend server at ${API_BASE_URL}. Please check if the backend is running.`);
     }
     throw error;
@@ -55,6 +71,10 @@ export const getQuiz = async (quizId) => {
     return response.json();
   } catch (error) {
     if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
+      // Provide better error message for production without backend configured
+      if (isProduction && !isBackendConfigured) {
+        throw new Error('Backend server is not configured. Please set REACT_APP_API_URL environment variable in Netlify with your deployed backend URL. See deployment guide for instructions.');
+      }
       throw new Error(`Cannot connect to backend server at ${API_BASE_URL}. Please check if the backend is running.`);
     }
     throw error;
