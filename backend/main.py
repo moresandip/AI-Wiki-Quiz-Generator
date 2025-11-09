@@ -111,6 +111,19 @@ async def get_quiz(quiz_id: int, db: Session = Depends(get_db)):
     quiz_data = json.loads(quiz.full_quiz_data)
     return quiz_data
 
+@app.delete("/quiz/{quiz_id}")
+async def delete_quiz(quiz_id: int, db: Session = Depends(get_db)):
+    """
+    Delete a specific quiz by ID.
+    """
+    quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
+    if not quiz:
+        raise HTTPException(status_code=404, detail="Quiz not found")
+
+    db.delete(quiz)
+    db.commit()
+    return {"message": "Quiz deleted successfully"}
+
 @app.get("/health")
 async def health_check():
     """
@@ -121,5 +134,3 @@ async def health_check():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
