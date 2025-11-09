@@ -70,9 +70,16 @@ const BackendStatus = () => {
           <code className="text-sm bg-gray-100 px-3 py-2 rounded block break-all">{apiUrl}</code>
           <p className="text-xs text-gray-500 mt-2">
             {envVarSet 
-              ? '⚠️ Environment variable is set but contains localhost. This means the build was done before setting the variable.'
-              : '❌ Environment variable REACT_APP_API_URL is not set in Netlify.'}
+              ? '⚠️ Environment variable is set but contains localhost. This means the build was done before setting the variable. You MUST redeploy Netlify after setting the variable!'
+              : '❌ Environment variable REACT_APP_API_URL is not set in Netlify, OR the site was not redeployed after setting it. Environment variables are only available during build time!'}
           </p>
+          <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded">
+            <p className="text-xs font-semibold text-red-800 mb-1">🚨 CRITICAL: After setting environment variable in Netlify:</p>
+            <p className="text-xs text-red-700">1. Go to <strong>Deploys</strong> tab</p>
+            <p className="text-xs text-red-700">2. Click <strong>Trigger deploy</strong> → <strong>Clear cache and deploy site</strong></p>
+            <p className="text-xs text-red-700">3. Wait for deployment to complete (2-3 minutes)</p>
+            <p className="text-xs text-red-700">4. Hard refresh browser (Ctrl+Shift+R)</p>
+          </div>
         </div>
 
         <div className="bg-blue-50 p-5 rounded-lg mb-4 border border-blue-200">
