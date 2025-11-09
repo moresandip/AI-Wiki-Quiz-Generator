@@ -48,7 +48,6 @@ function App() {
 
       <main className="max-w-7xl mx-auto py-8 sm:px-6 lg:px-8">
         <BackendStatus />
-        <BackendConfigChecker />
         <div className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 animate-fade-in">
           {activeTab === 'generate' && <GenerateQuizTab />}
           {activeTab === 'history' && <HistoryTab />}
