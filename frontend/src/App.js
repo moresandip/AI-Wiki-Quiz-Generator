@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import GenerateQuizTab from './tabs/GenerateQuizTab';
 import HistoryTab from './tabs/HistoryTab';
+import BackendStatus from './components/BackendStatus';
 
 function App() {
   const [activeTab, setActiveTab] = useState('generate');
 
-  // Ensure UI always renders
-  try {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
       <header className="bg-white/90 backdrop-blur-md shadow-lg border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
@@ -47,30 +46,14 @@ function App() {
       </nav>
 
       <main className="max-w-7xl mx-auto py-8 sm:px-6 lg:px-8">
+        <BackendStatus />
         <div className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 animate-fade-in">
           {activeTab === 'generate' && <GenerateQuizTab />}
           {activeTab === 'history' && <HistoryTab />}
         </div>
       </main>
     </div>
-    );
-  } catch (error) {
-    console.error('App render error:', error);
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl text-center">
-          <h1 className="text-3xl font-bold text-purple-600 mb-4">🚀 AI Wiki Quiz Generator</h1>
-          <p className="text-gray-700 mb-4">An error occurred. Please refresh the page.</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
-          >
-            Refresh Page
-          </button>
-        </div>
-      </div>
-    );
-  }
+  );
 }
 
 export default App;
