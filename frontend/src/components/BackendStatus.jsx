@@ -9,36 +9,20 @@ const BackendStatus = () => {
     // Get the API URL being used
     const currentApiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000';
     setApiUrl(currentApiUrl);
-    
+
     // Check if environment variable is actually set
     const hasEnvVar = !!process.env.REACT_APP_API_URL;
     setEnvVarSet(hasEnvVar);
 
     // Check if backend is configured
-    const isProduction = window.location.hostname !== 'localhost' && 
-                         window.location.hostname !== '127.0.0.1' &&
-                         !window.location.hostname.includes('localhost');
-    const isConfigured = hasEnvVar && 
+    const isConfigured = hasEnvVar &&
                         !currentApiUrl.includes('localhost') &&
                         currentApiUrl.startsWith('http');
 
-    if (isProduction && !isConfigured) {
+    if (!isConfigured) {
       setStatus('not-configured');
-    } else if (!isProduction) {
-      // Local development - try to connect
-      fetch(`${currentApiUrl}/health`)
-        .then(res => {
-          if (res.ok) {
-            setStatus('connected');
-          } else {
-            setStatus('error');
-          }
-        })
-        .catch(() => {
-          setStatus('error');
-        });
     } else {
-      // Production and configured - test connection
+      // Configured - test connection
       fetch(`${currentApiUrl}/health`)
         .then(res => {
           if (res.ok) {
