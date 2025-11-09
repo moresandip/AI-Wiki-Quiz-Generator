@@ -14,15 +14,7 @@ const BackendStatus = () => {
     const hasEnvVar = !!process.env.REACT_APP_API_URL;
     setEnvVarSet(hasEnvVar);
 
-    // Check if we're in production
-    const isProduction = window.location.hostname !== 'localhost' &&
-                         window.location.hostname !== '127.0.0.1' &&
-                         !window.location.hostname.includes('localhost');
-
-    // Check if backend is configured
-    const isConfigured = hasEnvVar &&
-                        !currentApiUrl.includes('localhost') &&
-                        currentApiUrl.startsWith('http');
+    // Removed unused variables to fix ESLint warnings
 
     // Always attempt to connect, show warning only if connection fails
     // Removed configuration warning to avoid showing in UI
