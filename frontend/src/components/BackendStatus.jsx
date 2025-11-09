@@ -41,7 +41,7 @@ const BackendStatus = () => {
         .catch(() => {
           setStatus('error');
         });
-    }
+    // }
   }, []);
 
   if (status === 'checking' || status === 'connected') {
