@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import GenerateQuizTab from './tabs/GenerateQuizTab';
 import HistoryTab from './tabs/HistoryTab';
 import BackendStatus from './components/BackendStatus';
-import BackendConfigChecker from './components/BackendConfigChecker';
 
 function App() {
   const [activeTab, setActiveTab] = useState('generate');
