@@ -24,9 +24,11 @@ const BackendStatus = () => {
                         !currentApiUrl.includes('localhost') &&
                         currentApiUrl.startsWith('http');
 
-    if (isProduction && !isConfigured) {
-      setStatus('not-configured');
-    } else {
+    // Always attempt to connect, show warning only if connection fails
+    // Removed configuration warning to avoid showing in UI
+    // if (isProduction && !isConfigured) {
+    //   setStatus('not-configured');
+    // } else {
       // Configured or in development - test connection
       fetch(`${currentApiUrl}/health`)
         .then(res => {
